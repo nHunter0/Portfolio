@@ -1,0 +1,64 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Add smooth transitions for dark mode */
+.transition-theme {
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Custom styles for the active nav indicator */
+.nav-indicator {
+  @apply absolute bottom-0 left-0 h-0.5 bg-accent-purple transform scale-x-0 transition-transform duration-300 origin-left;
+}
+
+.active .nav-indicator {
+  @apply scale-x-100;
+}
+
+.button-primary {
+  @apply relative flex items-center gap-2 px-6 py-2 bg-accent-purple text-white rounded-xl
+    hover:bg-accent-violet transition-all duration-300 shadow-lg shadow-accent-purple/25
+    overflow-hidden;
+}
+
+.button-primary::before {
+  content: "";
+  @apply absolute inset-0 border-2 border-accent-purple rounded-xl opacity-50;
+}
+
+.button-icon {
+  @apply p-3 rounded-xl bg-neutral-200 dark:bg-primary-700 hover:bg-neutral-300 
+    dark:hover:bg-primary-600 transition-all duration-300;
+}
