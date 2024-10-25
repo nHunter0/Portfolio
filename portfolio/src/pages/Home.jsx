@@ -56,7 +56,7 @@ const Home = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.4,
       },
     },
   };
@@ -385,7 +385,7 @@ const Home = () => {
                   }}
                   whileHover={{ scale: 1.01, transition: { duration: 0.2 } }}
                   className="group bg-white dark:bg-primary-800 rounded-2xl overflow-hidden 
-          shadow-lg hover:shadow-xl transition-all duration-300 
+          shadow-lg hover:shadow-xl
           hover:shadow-accent-purple/10"
                 >
                   <div className="p-6 space-y-4">
@@ -400,21 +400,22 @@ const Home = () => {
                       </div>
                     </div>
 
+                    {/* Tech Stack */}
                     <motion.div
                       className="flex flex-wrap gap-2"
                       initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      transition={{ delay: 0.2 }}
-                      viewport={{ once: true }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.2 * index }}
                     >
                       {project.tech.map((tech) => (
-                        <span
+                        <motion.span
                           key={tech}
                           className="px-3 py-1 text-xs rounded-full bg-accent-purple/10 text-accent-purple
-                  dark:bg-accent-purple/20"
+                          dark:bg-accent-purple/20"
+                          whileHover={{ scale: 1.05 }}
                         >
                           {tech}
-                        </span>
+                        </motion.span>
                       ))}
                     </motion.div>
 

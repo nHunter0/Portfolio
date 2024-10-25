@@ -147,7 +147,7 @@ const Projects = () => {
                 variants={itemVariants}
                 whileHover={{ scale: 1.01 }}
                 className="group bg-white dark:bg-primary-800 rounded-2xl overflow-hidden 
-                  shadow-lg hover:shadow-xl transition-all duration-300 
+                  shadow-lg hover:shadow-xl
                   hover:shadow-accent-purple/10"
               >
                 <div className="p-6 space-y-4">
