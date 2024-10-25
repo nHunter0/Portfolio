@@ -93,10 +93,7 @@ const Projects = () => {
   };
 
   return (
-    <div
-      className="min-h-screen bg-neutral-100 dark:bg-primary-900 text-neutral-800 dark:text-neutral-100 
-      transition-colors duration-300"
-    >
+    <div className="min-h-screen bg-neutral-100 dark:bg-primary-900 text-neutral-800 dark:text-neutral-100 transition-colors duration-300">
       <Navigation isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
       <main className="pt-24 px-4">
