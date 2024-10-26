@@ -94,7 +94,7 @@ colors: {
 
 ## 📄 License
 
-This project is available for personal and commercial use. Please provide attribution if you use or modify this template.
+Please see LICENCE in repo
 
 Project Link: [https://github.com/nHunter0/Portfolio](https://github.com/nHunter0/Portfolio)
 
