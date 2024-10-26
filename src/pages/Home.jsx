@@ -103,7 +103,7 @@ const Home = () => {
 
               <motion.div variants={fadeIn} className="flex flex-wrap gap-4">
                 <motion.a
-                  href="/assets/resume.pdf"
+                  href={`${process.env.PUBLIC_URL}/resume.pdf`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="button-primary group"
