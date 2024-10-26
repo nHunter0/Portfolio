@@ -94,7 +94,7 @@ colors: {
 
 ## 📄 License
 
-Please see LICENCE in repo
+Please see LICENSE in repo
 
 Project Link: [https://github.com/nHunter0/Portfolio](https://github.com/nHunter0/Portfolio)
 
