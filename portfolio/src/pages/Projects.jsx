@@ -2,19 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Github, ExternalLink } from "lucide-react";
 import { motion } from "framer-motion";
 import Navigation from "../components/Navigation";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const Projects = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const { isDarkMode, toggleDarkMode } = useDarkMode(true);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark");
-  };
 
   const projectList = [
     {
@@ -96,8 +92,8 @@ const Projects = () => {
     <div className="min-h-screen bg-neutral-100 dark:bg-primary-900 text-neutral-800 dark:text-neutral-100 transition-colors duration-300">
       <Navigation isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
-      <main className="pt-24 px-4">
-        <div className="max-w-3xl mx-auto space-y-16">
+      <main className="pt-24 pb-14">
+        <div className="max-w-3xl mx-auto px-4  space-y-16">
           {/* Header with animated title */}
           <motion.div
             className="text-center space-y-4"

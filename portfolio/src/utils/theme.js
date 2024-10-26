@@ -1,4 +1,4 @@
-// utils/theme.js
+// utils/theme.js !deprecated!
 export const setTheme = (isDark) => {
   if (isDark) {
     document.documentElement.classList.add("dark");

@@ -12,6 +12,7 @@ import Navigation from "../components/Navigation";
 import { motion } from "framer-motion";
 import profileImg from "../assets/profile.jpg";
 import ExperienceSection from "../components/ExperienceSection";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const projectList = [
   {
@@ -33,25 +34,13 @@ const projectList = [
 ];
 
 const Home = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
+
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    setIsDarkMode(prefersDark);
     setIsVisible(true);
-
-    if (prefersDark) {
-      document.documentElement.classList.add("dark");
-    }
   }, []);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark");
-  };
 
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
@@ -63,7 +52,7 @@ const Home = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.4,
+        staggerChildren: 0.2,
       },
     },
   };
@@ -72,27 +61,27 @@ const Home = () => {
     <div className="min-h-screen bg-neutral-100 dark:bg-primary-900 text-neutral-800 dark:text-neutral-100 transition-colors duration-300">
       <Navigation isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
-      <main className="pt-24 px-4">
-        <div className="max-w-3xl mx-auto space-y-16">
+      <main className="pt-24 pb-14">
+        <div className="max-w-3xl mx-auto px-4 space-y-16">
           {/* Hero Section */}
           <motion.div
             initial="hidden"
             animate={isVisible ? "visible" : "hidden"}
             variants={stagger}
-            className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center"
+            className="flex flex-col-reverse md:grid md:grid-cols-12 gap-8 items-center"
           >
-            <motion.div
-              className="md:col-span-7 order-2 md:order-1 space-y-6"
-              variants={fadeIn}
-            >
+            <motion.div className="md:col-span-7 space-y-6" variants={fadeIn}>
               <motion.div className="space-y-2" variants={stagger}>
                 <motion.h2
                   variants={fadeIn}
                   className="text-accent-purple text-lg font-medium"
                 >
-                  Software Engineer & Digital Forensics Enthusiast
+                  Software Engineer Specialising in Digital Forensics
                 </motion.h2>
-                <motion.h1 variants={fadeIn} className="text-4xl font-bold">
+                <motion.h1
+                  variants={fadeIn}
+                  className="text-3xl md:text-4xl font-bold"
+                >
                   Nathan Hunter
                 </motion.h1>
                 <motion.div
@@ -100,18 +89,16 @@ const Home = () => {
                   className="flex items-center gap-2 text-neutral-600 dark:text-neutral-400"
                 >
                   <MapPin size={18} className="text-accent-purple" />
-                  <span>Based in Sydney, Australia 🏢</span>
+                  <span>Based in Sydney, Australia</span>
                 </motion.div>
                 <motion.p
                   variants={fadeIn}
                   className="text-neutral-600 dark:text-neutral-400 max-w-md pt-2"
                 >
-                  Crafting innovative solutions in digital forensics. I
-                  specialize in performance optimization and encryption
-                  technologies, turning complex challenges into elegant
-                  solutions. When I'm not decoding digital mysteries, you'll
-                  find me working on side projects or enjoying a cup of instant
-                  coffee. ☕
+                  I specialize in digital forensics, focusing on optimization
+                  and encryption. I enjoy solving complex challenges and working
+                  on side projects. In my free time, you'll often find me
+                  enjoying a cup of instant coffee. ☕
                 </motion.p>
               </motion.div>
 
@@ -153,10 +140,11 @@ const Home = () => {
                       href={href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="button-icon hover:shadow-lg "
+                      className="button-icon hover:shadow-lg"
                       variants={fadeIn}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
+                      aria-label={label}
                     >
                       <Icon size={18} />
                     </motion.a>
@@ -166,14 +154,14 @@ const Home = () => {
             </motion.div>
 
             <motion.div
-              className="md:col-span-5 order-1 md:order-2"
+              className="md:col-span-5"
               variants={fadeIn}
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5 }}
             >
               <div className="relative">
-                <div className="w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden ring-4 ring-accent-purple/20 mx-auto relative z-10">
+                <div className="w-32 h-32 md:w-48 md:h-48 rounded-2xl overflow-hidden ring-4 ring-accent-purple/20 mx-auto relative z-10">
                   <img
                     src={profileImg}
                     alt="Profile"
@@ -181,7 +169,7 @@ const Home = () => {
                   />
                 </div>
                 <motion.div
-                  className="absolute -bottom-4 -right-4 bg-accent-purple/10 w-48 h-48 rounded-2xl"
+                  className="absolute -bottom-4 -right-4 bg-accent-purple/10 w-32 h-32 md:w-48 md:h-48 rounded-2xl"
                   animate={{
                     scale: [1, 1.05, 1],
                     rotate: [0, -2, 0],
@@ -196,9 +184,8 @@ const Home = () => {
             </motion.div>
           </motion.div>
 
-          {/* Experience Section with border */}
+          {/* Experience Section */}
           <motion.div
-            className="border-2 border-accent-purple/20 rounded-2xl p-8 dark:border-accent-purple/10"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -214,7 +201,7 @@ const Home = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4">
               <h2 className="text-2xl font-bold text-accent-purple">
                 Featured Projects
               </h2>
@@ -227,7 +214,7 @@ const Home = () => {
                 <Link
                   to="/projects"
                   className="group flex items-center gap-2 text-sm text-neutral-600 dark:text-neutral-400 
-                    hover:text-accent-purple transition-colors"
+                      hover:text-accent-purple transition-colors"
                 >
                   View all projects
                   <span className="group-hover:translate-x-1 transition-transform">
@@ -263,19 +250,17 @@ const Home = () => {
                     },
                   }}
                   className="group bg-white dark:bg-primary-800 rounded-2xl overflow-hidden 
-                    shadow-lg hover:shadow-xl hover:shadow-accent-purple/10"
+                      shadow-lg hover:shadow-xl hover:shadow-accent-purple/10"
                   whileHover={{ scale: 1.01 }}
                 >
                   <div className="p-6 space-y-4">
-                    <div className="flex justify-between items-start gap-4">
-                      <div className="space-y-2">
-                        <h3 className="text-xl font-bold group-hover:text-accent-purple transition-colors">
-                          {project.name}
-                        </h3>
-                        <p className="text-neutral-600 dark:text-neutral-400 text-sm">
-                          {project.description}
-                        </p>
-                      </div>
+                    <div className="space-y-2">
+                      <h3 className="text-xl font-bold group-hover:text-accent-purple transition-colors">
+                        {project.name}
+                      </h3>
+                      <p className="text-neutral-600 dark:text-neutral-400 text-sm">
+                        {project.description}
+                      </p>
                     </div>
 
                     <div className="flex flex-wrap gap-2">
@@ -283,7 +268,7 @@ const Home = () => {
                         <motion.span
                           key={tech}
                           className="px-3 py-1 text-xs rounded-full bg-accent-purple/10 text-accent-purple
-                          dark:bg-accent-purple/20 hover:bg-accent-purple hover:text-white transition-colors"
+                              dark:bg-accent-purple/20 hover:bg-accent-purple hover:text-white transition-colors"
                           whileHover={{ scale: 1.05 }}
                         >
                           {tech}
@@ -291,14 +276,14 @@ const Home = () => {
                       ))}
                     </div>
 
-                    <div className="flex gap-3 pt-2">
+                    <div className="flex flex-wrap gap-3 pt-2">
                       <motion.a
                         href={project.githubLink}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-4 py-2 rounded-xl bg-neutral-200 dark:bg-primary-700
-                          hover:bg-accent-purple hover:text-white transition-colors
-                          text-sm font-medium"
+                            hover:bg-accent-purple hover:text-white transition-colors
+                            text-sm font-medium"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                       >
@@ -311,8 +296,8 @@ const Home = () => {
                           target="_blank"
                           rel="noopener noreferrer"
                           className="flex items-center gap-2 px-4 py-2 rounded-xl bg-neutral-200 dark:bg-primary-700
-                            hover:bg-accent-purple hover:text-white transition-colors
-                            text-sm font-medium"
+                              hover:bg-accent-purple hover:text-white transition-colors
+                              text-sm font-medium"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
                         >

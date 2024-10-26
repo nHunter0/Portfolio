@@ -34,7 +34,9 @@ const ExperienceCard = ({
             </motion.h3>
             <div className="flex items-center gap-2 text-sm text-accent-purple">
               <Building2 size={16} />
-              <span>{company}</span>
+              <span>
+                <a href={link}>{company}</a>
+              </span>
             </div>
           </div>
           <button
@@ -89,7 +91,9 @@ const ExperienceCard = ({
                   {skills.map((skill, index) => (
                     <span
                       key={index}
-                      className="px-3 py-1 text-xs rounded-full bg-accent-purple/10 text-accent-purple"
+                      className="px-3 py-1 text-xs rounded-full bg-accent-purple/10 text-accent-purple
+                      dark:bg-accent-purple/20"
+                      whileHover={{ scale: 1.05 }}
                     >
                       {skill}
                     </span>
@@ -146,11 +150,11 @@ const ExperienceSection = () => {
           "Led software integration initiatives",
         ],
         skills: ["CUDA", "OpenCL", "C++", "Python", "Forensics", "Encryption"],
-        link: "https://www.company-website.com",
+        link: "https://getdataforensics.com/",
       },
       {
         role: "Software Engineer Intern",
-        company: "GetData Software Company",
+        company: "GetData Forensics",
         date: "January 2021 - January 2022",
         location: "Sydney, Australia",
         description: [
@@ -160,7 +164,7 @@ const ExperienceSection = () => {
           "Collaborated with senior engineers on core features",
         ],
         skills: ["C++", "Python", "Git", "Software Testing", "Virtualization"],
-        link: "https://www.company-website.com",
+        link: "https://getdataforensics.com/",
       },
     ],
     education: [
@@ -210,12 +214,8 @@ const ExperienceSection = () => {
             key={tab}
             onClick={() => setActiveTab(tab)}
             className={`flex-1 px-6 py-2.5 rounded-lg font-medium relative ${
-              activeTab === tab
-                ? "text-white"
-                : "hover:bg-neutral-100 dark:hover:bg-primary-700 text-neutral-600 dark:text-neutral-300"
+              activeTab === tab ? "text-white" : ""
             }`}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
           >
             <motion.div
               className="absolute inset-0 rounded-lg bg-accent-purple"
@@ -223,7 +223,7 @@ const ExperienceSection = () => {
               animate={{
                 opacity: activeTab === tab ? 1 : 0,
               }}
-              transition={{ duration: 0.2 }}
+              transition={{ duration: 0.1 }}
             />
             <span className="relative flex items-center justify-center gap-2">
               {tab === "work" ? (
@@ -246,7 +246,7 @@ const ExperienceSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3, delay: index * 0.1 }}
+              transition={{ duration: 0.2, delay: index * 0.1 }}
             >
               <ExperienceCard {...experience} />
             </motion.div>

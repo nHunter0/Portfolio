@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { Mail, Linkedin, Github, MapPin, Code2 } from "lucide-react";
 import { motion } from "framer-motion";
 import Navigation from "../components/Navigation";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const Contact = () => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    document.documentElement.classList.toggle("dark");
-  };
+  const { isDarkMode, toggleDarkMode } = useDarkMode(true);
 
   const contactMethods = [
     {
@@ -60,14 +56,11 @@ const Contact = () => {
   };
 
   return (
-    <div
-      className="min-h-screen bg-neutral-100 dark:bg-primary-900 text-neutral-800 dark:text-neutral-100 
-      transition-colors duration-300"
-    >
+    <div className="min-h-screen bg-neutral-100 dark:bg-primary-900 text-neutral-800 dark:text-neutral-100 transition-colors duration-300">
       <Navigation isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
-      <main className="pt-24 px-4">
-        <div className="max-w-3xl mx-auto space-y-16">
+      <main className="pt-24">
+        <div className="max-w-3xl mx-auto px-4 space-y-16">
           {/* Header */}
           <motion.div
             className="text-center space-y-4"
@@ -102,20 +95,17 @@ const Contact = () => {
                 key={method.title}
                 variants={itemVariants}
                 whileHover={{ scale: 1.02 }}
-                className={`relative group ${
-                  method.href ? "cursor-pointer" : ""
-                }`}
+                className="relative group"
               >
                 {method.href ? (
                   <a
                     href={method.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block bg-white dark:bg-primary-800 rounded-2xl p-6
-                      shadow-lg hover:shadow-xl transition-all duration-300 hover:shadow-accent-purple/10"
+                    className="block bg-white dark:bg-primary-800 rounded-2xl p-6 shadow-lg hover:shadow-xl hover:shadow-accent-purple/10"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="p-3 rounded-xl bg-accent-purple/10 group-hover:bg-accent-purple/20 transition-colors">
+                      <div className="p-3 rounded-xl bg-accent-purple/10 group-hover:bg-accent-purple/20">
                         <method.icon className="text-accent-purple" size={24} />
                       </div>
                       <div>
@@ -127,12 +117,9 @@ const Contact = () => {
                     </div>
                   </a>
                 ) : (
-                  <div
-                    className="bg-white dark:bg-primary-800 rounded-2xl p-6
-                    shadow-lg transition-all duration-300"
-                  >
+                  <div className="bg-white dark:bg-primary-800 rounded-2xl p-6 shadow-lg group-hover:shadow-xl group-hover:shadow-accent-purple/10">
                     <div className="flex items-center gap-4">
-                      <div className="p-3 rounded-xl bg-accent-purple/10">
+                      <div className="p-3 rounded-xl bg-accent-purple/10 group-hover:bg-accent-purple/20">
                         <method.icon className="text-accent-purple" size={24} />
                       </div>
                       <div>
