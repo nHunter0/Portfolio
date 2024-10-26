@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import Navigation from "../components/Navigation";
 import { motion } from "framer-motion";
-import profileImg from "../assets/profile.jpg";
+import profileImg from "../assets/profile.jpeg";
 import ExperienceSection from "../components/ExperienceSection";
 import { useDarkMode } from "../context/DarkModeContext";
 
@@ -25,11 +25,11 @@ const projectList = [
   },
   {
     id: 2,
-    name: "Text Editor C++",
+    name: "Resistor Detector",
     description:
-      "NHText is a text editor written in C++ with predictive text technology, improving typing efficiency and accuracy through NLP and machine learning.",
-    githubLink: "https://github.com/nHunter0/TextEditorCpp",
-    tech: ["C++", "NLP", "Machine Learning"],
+      "This repository contains the code necessary to train and utilize a Convolutional Neural Network (CNN) for resistor recognition from images. The model classifies 37 different resistor types with high accuracy.",
+    githubLink: "https://github.com/nHunter0/Resistor-Detector-",
+    tech: ["Python", "CNN", "Computer Vision", "Deep Learning"],
   },
 ];
 
@@ -76,7 +76,7 @@ const Home = () => {
                   variants={fadeIn}
                   className="text-accent-purple text-lg font-medium"
                 >
-                  Software Engineer Specialising in Digital Forensics
+                  Forensic Software Engineer
                 </motion.h2>
                 <motion.h1
                   variants={fadeIn}
@@ -95,10 +95,9 @@ const Home = () => {
                   variants={fadeIn}
                   className="text-neutral-600 dark:text-neutral-400 max-w-md pt-2"
                 >
-                  I specialize in digital forensics, focusing on optimization
-                  and encryption. I enjoy solving complex challenges and working
-                  on side projects. In my free time, you'll often find me
-                  enjoying a cup of instant coffee. ☕
+                  Forensic Software Engineer with 1.5+ years in developing
+                  innovative digital forensics solutions. Always building,
+                  always learning. Fueled by instant coffee. ☕
                 </motion.p>
               </motion.div>
 
@@ -268,7 +267,7 @@ const Home = () => {
                         <motion.span
                           key={tech}
                           className="px-3 py-1 text-xs rounded-full bg-accent-purple/10 text-accent-purple
-                              dark:bg-accent-purple/20 hover:bg-accent-purple hover:text-white transition-colors"
+                              dark:bg-accent-purple/20 hover:bg-accent-purple"
                           whileHover={{ scale: 1.05 }}
                         >
                           {tech}

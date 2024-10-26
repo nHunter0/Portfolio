@@ -12,6 +12,8 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
   const terminalRef = useRef(null);
   const inputRef = useRef(null);
   const outputContainerRef = useRef(null);
+  const [commandHistory, setCommandHistory] = useState([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
   const commands = {
     help: () => [
@@ -154,6 +156,12 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
     const args = cmd.toLowerCase().trim().split(" ");
     const command = args[0];
 
+    // Add command to history if it's not empty
+    if (cmd.trim()) {
+      setCommandHistory((prev) => [...prev, cmd]);
+      setHistoryIndex(-1);
+    }
+
     if (args.length === 2 && args[0] === "sudo" && args[1] === "exit") {
       setIsSudo(false);
       return [
@@ -191,6 +199,29 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
     setInput("");
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (commandHistory.length > 0) {
+        const newIndex = historyIndex + 1;
+        if (newIndex < commandHistory.length) {
+          setHistoryIndex(newIndex);
+          setInput(commandHistory[commandHistory.length - 1 - newIndex]);
+        }
+      }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (historyIndex > 0) {
+        const newIndex = historyIndex - 1;
+        setHistoryIndex(newIndex);
+        setInput(commandHistory[commandHistory.length - 1 - newIndex]);
+      } else if (historyIndex === 0) {
+        setHistoryIndex(-1);
+        setInput("");
+      }
+    }
+  };
+
   const handleTerminalClick = (e) => {
     e.stopPropagation();
     inputRef.current?.focus();
@@ -205,11 +236,9 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      // Ignore clicks on the terminal button
       if (terminalButtonRef?.current?.contains(e.target)) {
         return;
       }
-      // Close only if clicking outside terminal
       if (terminalRef.current && !terminalRef.current.contains(e.target)) {
         onClose();
       }
@@ -264,6 +293,7 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
             type="text"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={handleKeyDown}
             className="w-full bg-transparent outline-none text-neutral-100 caret-accent-purple"
             spellCheck="false"
           />

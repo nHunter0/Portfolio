@@ -43,7 +43,7 @@ const Projects = () => {
       description:
         "This project is a fun, interactive game that combines the addictive nature of clicker games with the concept of mining cryptocurrency using a simple blockchain.",
       githubLink: "https://github.com/nHunter0/NHCoinMiningGame/",
-      websiteLink: "nhunter0.github.io/NHCoinMiningGame/",
+      websiteLink: "https://nhunter0.github.io/NHCoinMiningGame/",
       tech: ["JavaScript", "Blockchain", "Game Development"],
     },
     {

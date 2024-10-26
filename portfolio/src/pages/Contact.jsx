@@ -60,7 +60,7 @@ const Contact = () => {
       <Navigation isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
 
       <main className="pt-24">
-        <div className="max-w-3xl mx-auto px-4 space-y-16">
+        <div className="max-w-3xl mx-auto px-4  pb-14 space-y-16">
           {/* Header */}
           <motion.div
             className="text-center space-y-4"
