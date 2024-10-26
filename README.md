@@ -96,10 +96,6 @@ colors: {
 
 This project is available for personal and commercial use. Please provide attribution if you use or modify this template.
 
-## 🤝 Contact
-
-Nathan Hunter - [n-hunter@hotmail.com](mailto:n-hunter@hotmail.com)
-
 Project Link: [https://github.com/nHunter0/Portfolio](https://github.com/nHunter0/Portfolio)
 
 ---
