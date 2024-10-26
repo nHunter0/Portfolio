@@ -7,7 +7,7 @@ import Contact from "./pages/Contact";
 const App = () => {
   return (
     <DarkModeProvider>
-      <Router>
+      <Router basename="/Portfolio">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
