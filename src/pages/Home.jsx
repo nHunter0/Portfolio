@@ -267,7 +267,7 @@ const Home = () => {
                         <motion.span
                           key={tech}
                           className="px-3 py-1 text-xs rounded-full bg-accent-purple/10 text-accent-purple
-                              dark:bg-accent-purple/20 hover:bg-accent-purple"
+                          dark:bg-accent-purple/20"
                           whileHover={{ scale: 1.05 }}
                         >
                           {tech}
