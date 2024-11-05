@@ -1,4 +1,4 @@
-# Nathan Hunter - Portfolio Website
+# Nathan H - Portfolio Website
 
 A modern, responsive portfolio website built with React and Tailwind CSS, featuring a dark mode toggle, smooth animations, and project showcases.
 
@@ -100,4 +100,4 @@ Project Link: [https://github.com/nHunter0/Portfolio](https://github.com/nHunter
 
 ---
 
-Made with ☕ by Nathan Hunter
+Made with ☕ by Nathan H
