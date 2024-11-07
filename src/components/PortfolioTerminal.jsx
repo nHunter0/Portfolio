@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Terminal } from "lucide-react";
+import { useDarkMode } from "../context/DarkModeContext";
 
 const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
   const [input, setInput] = useState("");
@@ -14,6 +15,7 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
   const outputContainerRef = useRef(null);
   const [commandHistory, setCommandHistory] = useState([]);
   const [historyIndex, setHistoryIndex] = useState(-1);
+  const { isDarkMode } = useDarkMode();
 
   const commands = {
     help: () => [
@@ -251,7 +253,9 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
   return (
     <div
       ref={terminalRef}
-      className="bg-primary-800 rounded-2xl overflow-hidden shadow-lg"
+      className={`${
+        isDarkMode ? "bg-primary-800" : "bg-white"
+      } rounded-2xl overflow-hidden shadow-lg`}
       onClick={handleTerminalClick}
       style={{
         width: "100%",
@@ -261,7 +265,11 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
         minHeight: "200px",
       }}
     >
-      <div className="bg-primary-900 p-3 flex items-center gap-3">
+      <div
+        className={`${
+          isDarkMode ? "bg-primary-900" : "bg-neutral-100"
+        } p-3 flex items-center gap-3`}
+      >
         <div className="flex gap-2">
           <div className="w-3 h-3 rounded-full bg-red-500"></div>
           <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
@@ -269,7 +277,11 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
         </div>
         <div className="flex items-center gap-2">
           <Terminal size={16} className="text-accent-purple" />
-          <span className="text-neutral-100 text-sm">
+          <span
+            className={`${
+              isDarkMode ? "text-neutral-100" : "text-neutral-700"
+            } text-sm`}
+          >
             portfolio-terminal {isSudo ? "(root)" : "(user)"}
           </span>
         </div>
@@ -277,7 +289,9 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
 
       <div
         ref={outputContainerRef}
-        className="p-4 font-mono text-sm text-neutral-100 space-y-2 overflow-y-auto"
+        className={`p-4 font-mono text-sm ${
+          isDarkMode ? "text-neutral-100" : "text-neutral-700"
+        } space-y-2 overflow-y-auto`}
         style={{ height: "calc(100% - 48px)" }}
       >
         {output.map((line, i) => (
@@ -294,7 +308,9 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="w-full bg-transparent outline-none text-neutral-100 caret-accent-purple"
+            className={`w-full bg-transparent outline-none ${
+              isDarkMode ? "text-neutral-100" : "text-neutral-700"
+            } caret-accent-purple`}
             spellCheck="false"
           />
         </form>
