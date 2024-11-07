@@ -7,6 +7,7 @@ import {
   Calendar,
   MapPin,
   ExternalLink,
+  Award,
 } from "lucide-react";
 
 const ExperienceCard = ({
@@ -26,7 +27,6 @@ const ExperienceCard = ({
       className="relative rounded-2xl bg-white dark:bg-primary-800 overflow-hidden"
     >
       <motion.div layout="position" className="p-6 space-y-4">
-        {/* Header */}
         <div className="flex items-start justify-between">
           <div className="space-y-1">
             <motion.h3 layout="position" className="text-lg font-semibold">
@@ -41,7 +41,7 @@ const ExperienceCard = ({
           </div>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 hover:bg-neutral-100 dark:hover:bg-primary-700 rounded-xl transition-colors"
+            className="p-2 hover:bg-neutral-100 dark:hover:bg-primary-700 rounded-xl"
           >
             <motion.div
               animate={{ rotate: isExpanded ? 180 : 0 }}
@@ -52,7 +52,6 @@ const ExperienceCard = ({
           </button>
         </div>
 
-        {/* Meta Information */}
         <div className="flex flex-wrap gap-4 text-sm text-neutral-600 dark:text-neutral-400">
           <div className="flex items-center gap-1">
             <Calendar size={14} />
@@ -64,7 +63,6 @@ const ExperienceCard = ({
           </div>
         </div>
 
-        {/* Expanded Content */}
         <AnimatePresence>
           {isExpanded && (
             <motion.div
@@ -74,7 +72,6 @@ const ExperienceCard = ({
               transition={{ duration: 0.3 }}
               className="space-y-4 pt-4"
             >
-              {/* Description */}
               <div className="space-y-2">
                 <h4 className="font-medium">Responsibilities & Achievements</h4>
                 <ul className="list-disc list-inside space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
@@ -84,15 +81,13 @@ const ExperienceCard = ({
                 </ul>
               </div>
 
-              {/* Skills */}
               <div className="space-y-2">
                 <h4 className="font-medium">Skills & Technologies</h4>
                 <div className="flex flex-wrap gap-2">
                   {skills.map((skill, index) => (
                     <motion.span
                       key={index}
-                      className="px-3 py-1 text-xs rounded-full bg-accent-purple/10 text-accent-purple
-                      dark:bg-accent-purple/20"
+                      className="px-3 py-1 text-xs rounded-full bg-accent-purple/10 text-accent-purple dark:bg-accent-purple/20"
                       whileHover={{ scale: 1.05 }}
                     >
                       {skill}
@@ -101,7 +96,6 @@ const ExperienceCard = ({
                 </div>
               </div>
 
-              {/* Link */}
               {link && (
                 <motion.a
                   href={link}
@@ -119,7 +113,6 @@ const ExperienceCard = ({
         </AnimatePresence>
       </motion.div>
 
-      {/* Timeline Indicator */}
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent-purple/20">
         <motion.div
           className="w-full bg-accent-purple"
@@ -141,7 +134,7 @@ const ExperienceSection = () => {
       {
         role: "Software Engineer",
         company: "GetData Forensics",
-        date: "March 2024 - Present",
+        date: "2024 - Present",
         location: "Sydney, Australia",
         description: [
           "Performance Optimization with CUDA, OpenCL",
@@ -153,9 +146,30 @@ const ExperienceSection = () => {
         link: "https://getdataforensics.com/",
       },
       {
+        role: "Full-Stack Developer",
+        company: "Self Employed",
+        date: "2022 - 2023",
+        location: "Hybrid, Australia ",
+        description: [
+          "Developed and maintaining responsive web applications for clients",
+          "Creating secure, user-friendly mobile applications using React Native and Flutter",
+          "Managed multiple client projects and delivering customized solutions",
+          "Providing ongoing support and maintenance for deployed applications in my spare time",
+        ],
+        skills: [
+          "React",
+          "React Native",
+          "Flutter",
+          "Node.js",
+          "WebDev",
+          "Firebase",
+        ],
+        link: "#",
+      },
+      {
         role: "Software Engineer Intern",
         company: "GetData Forensics",
-        date: "January 2021 - January 2022",
+        date: "2021 - 2022",
         location: "Sydney, Australia",
         description: [
           "Enhanced and maintained software products",
@@ -171,20 +185,22 @@ const ExperienceSection = () => {
       {
         role: "Bachelor of Computer Science",
         company: "University of Wollongong",
-        date: "2021 - December 2023",
+        date: "2021 - 2023",
         location: "Wollongong, Australia",
         description: [
-          "Specialization in Cybersecurity",
+          "Majored and specialized in Cybersecurity",
           "Graduate with Distinction",
           "Key coursework: Algorithms, Data Structures, Network Security",
+          "Graduated in the top 5% of undergraduates in the Faculty of Engineering and Information Sciences",
+          "Placed in top 5 projects for end of year CAPSTONE project",
           "Led team projects in software development",
         ],
         skills: [
           "Cybersecurity",
           "Algorithms",
           "Data Structures",
+          "C++",
           "Java",
-          "Python",
         ],
         link: "https://www.uow.edu.au",
       },
@@ -203,41 +219,89 @@ const ExperienceSection = () => {
         link: "https://www.uow.edu.au",
       },
     ],
+    certifications: [
+      {
+        role: "Machine Learning/AI Engineer Course",
+        company: "Codecademy",
+        date: "2024",
+        location: "Online",
+        description: [
+          "Intermediate Machine Learning course",
+          "50 hour comprehensive curriculum",
+          "37 AI Projects completed",
+          "Neural networks and deep learning",
+          "Data preprocessing and analysis",
+        ],
+        skills: ["Machine Learning", "Python", "Github", "Data Analysis"],
+        link: "https://www.codecademy.com/profiles/Nathan123_69/certificates/6f8e0510ca91437a847b53aa9e9aa3f1",
+      },
+      {
+        role: "Advanced Python Course",
+        company: "Codecademy",
+        date: "2024",
+        location: "Online",
+        description: [
+          "Python fundamentals and advanced concepts",
+          "Foundation of Python core concepts",
+          "Object-oriented programming",
+          "Data structures and algorithms",
+        ],
+        skills: ["Python", "Algorithms", "Data Structures"],
+        link: "https://www.codecademy.com/profiles/Nathan123_69/certificates/9360ffd5f85216dc4fbe5b19fe1db5e4",
+      },
+      {
+        role: "Intermediate Python 3 Course",
+        company: "Codecademy",
+        date: "2023",
+        location: "Online",
+        description: [
+          "Advanced Python programming concepts",
+          "Best practices in Python development",
+          "Problem-solving with Python",
+          "Code optimization techniques",
+        ],
+        skills: ["Python", "Object-Oriented Programming", "Code Optimization"],
+        link: "https://www.codecademy.com/profiles/Nathan123_69/certificates/18580789eaba28f09e116f4fc2acec44",
+      },
+    ],
+  };
+
+  const tabIcons = {
+    work: Building2,
+    education: GraduationCap,
+    certifications: Award,
   };
 
   return (
     <motion.section className="space-y-8">
-      {/* Tab Buttons */}
       <div className="flex w-full border rounded-xl bg-white dark:bg-primary-800 p-1.5">
-        {["work", "education"].map((tab) => (
-          <motion.button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`flex-1 px-6 py-2.5 rounded-lg font-medium relative ${
-              activeTab === tab ? "text-white" : ""
-            }`}
-          >
-            <motion.div
-              className="absolute inset-0 rounded-lg bg-accent-purple"
-              initial={false}
-              animate={{
-                opacity: activeTab === tab ? 1 : 0,
-              }}
-              transition={{ duration: 0.1 }}
-            />
-            <span className="relative flex items-center justify-center gap-2">
-              {tab === "work" ? (
-                <Building2 size={18} />
-              ) : (
-                <GraduationCap size={18} />
-              )}
-              {tab.charAt(0).toUpperCase() + tab.slice(1)}
-            </span>
-          </motion.button>
-        ))}
+        {Object.keys(experienceData).map((tab) => {
+          const IconComponent = tabIcons[tab];
+          return (
+            <motion.button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`flex-1 px-6 py-2.5 rounded-lg font-medium relative ${
+                activeTab === tab ? "text-white" : ""
+              }`}
+            >
+              <motion.div
+                className="absolute inset-0 rounded-lg bg-accent-purple"
+                initial={false}
+                animate={{
+                  opacity: activeTab === tab ? 1 : 0,
+                }}
+                transition={{ duration: 0.1 }}
+              />
+              <span className="relative flex items-center justify-center gap-2">
+                <IconComponent size={18} />
+                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+              </span>
+            </motion.button>
+          );
+        })}
       </div>
 
-      {/* Experience Cards */}
       <motion.div className="space-y-4" layout>
         <AnimatePresence mode="wait">
           {experienceData[activeTab].map((experience, index) => (
