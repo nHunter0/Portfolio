@@ -26,39 +26,39 @@ const ExperienceCard = ({
       layout
       className="relative rounded-2xl bg-white dark:bg-primary-800 overflow-hidden"
     >
-      <motion.div layout="position" className="p-6 space-y-4">
-        <div className="flex items-start justify-between">
-          <div className="space-y-1">
-            <motion.h3 layout="position" className="text-lg font-semibold">
+      <motion.div layout="position" className="p-4 sm:p-6 space-y-4">
+        <div className="flex items-start justify-between gap-4">
+          <div className="space-y-1 min-w-0">
+            <motion.h3
+              layout="position"
+              className="text-base sm:text-lg font-semibold truncate"
+            >
               {role}
             </motion.h3>
             <div className="flex items-center gap-2 text-sm text-accent-purple">
-              <Building2 size={16} />
-              <span>
+              <Building2 size={16} className="flex-shrink-0" />
+              <span className="truncate">
                 <a href={link}>{company}</a>
               </span>
             </div>
           </div>
           <button
             onClick={() => setIsExpanded(!isExpanded)}
-            className="p-2 hover:bg-neutral-100 dark:hover:bg-primary-700 rounded-xl"
+            className="p-2 hover:bg-neutral-100 dark:hover:bg-primary-700 rounded-xl flex-shrink-0"
           >
-            <motion.div
-              animate={{ rotate: isExpanded ? 180 : 0 }}
-              transition={{ duration: 0.3 }}
-            >
+            <motion.div animate={{ rotate: isExpanded ? 180 : 0 }}>
               <ChevronDown size={20} />
             </motion.div>
           </button>
         </div>
 
-        <div className="flex flex-wrap gap-4 text-sm text-neutral-600 dark:text-neutral-400">
+        <div className="flex flex-wrap gap-2 sm:gap-4 text-sm text-neutral-600 dark:text-neutral-400">
           <div className="flex items-center gap-1">
-            <Calendar size={14} />
+            <Calendar size={14} className="flex-shrink-0" />
             <span>{date}</span>
           </div>
           <div className="flex items-center gap-1">
-            <MapPin size={14} />
+            <MapPin size={14} className="flex-shrink-0" />
             <span>{location}</span>
           </div>
         </div>
@@ -69,14 +69,15 @@ const ExperienceCard = ({
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.3 }}
               className="space-y-4 pt-4"
             >
               <div className="space-y-2">
                 <h4 className="font-medium">Responsibilities & Achievements</h4>
                 <ul className="list-disc list-inside space-y-1 text-sm text-neutral-600 dark:text-neutral-400">
                   {description.map((item, index) => (
-                    <li key={index}>{item}</li>
+                    <li key={index} className="leading-relaxed">
+                      <span className="pl-1">{item}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
@@ -116,10 +117,7 @@ const ExperienceCard = ({
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-accent-purple/20">
         <motion.div
           className="w-full bg-accent-purple"
-          animate={{
-            height: isExpanded ? "100%" : "30%",
-          }}
-          transition={{ duration: 0.3 }}
+          animate={{ height: isExpanded ? "100%" : "30%" }}
         />
       </div>
     </motion.div>
@@ -273,29 +271,26 @@ const ExperienceSection = () => {
   };
 
   return (
-    <motion.section className="space-y-8">
-      <div className="flex w-full border rounded-xl bg-white dark:bg-primary-800 p-1.5">
+    <motion.section className="space-y-6 sm:space-y-8">
+      <div className="flex flex-col sm:flex-row w-full border rounded-xl bg-white dark:bg-primary-800 p-1.5 gap-2 sm:gap-0">
         {Object.keys(experienceData).map((tab) => {
           const IconComponent = tabIcons[tab];
           return (
             <motion.button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 px-6 py-2.5 rounded-lg font-medium relative ${
+              className={`flex-1 px-4 sm:px-6 py-2.5 rounded-lg font-medium relative ${
                 activeTab === tab ? "text-white" : ""
               }`}
             >
               <motion.div
                 className="absolute inset-0 rounded-lg bg-accent-purple"
                 initial={false}
-                animate={{
-                  opacity: activeTab === tab ? 1 : 0,
-                }}
-                transition={{ duration: 0.1 }}
+                animate={{ opacity: activeTab === tab ? 1 : 0 }}
               />
               <span className="relative flex items-center justify-center gap-2">
                 <IconComponent size={18} />
-                {tab.charAt(0).toUpperCase() + tab.slice(1)}
+                <span className="capitalize">{tab}</span>
               </span>
             </motion.button>
           );
@@ -310,7 +305,7 @@ const ExperienceSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.2, delay: index * 0.1 }}
+              transition={{ delay: index * 0.1 }}
             >
               <ExperienceCard {...experience} />
             </motion.div>
