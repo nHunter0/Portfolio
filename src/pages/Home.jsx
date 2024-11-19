@@ -13,6 +13,7 @@ import { motion } from "framer-motion";
 import profileImg from "../assets/profile.jpeg";
 import ExperienceSection from "../components/ExperienceSection";
 import { useDarkMode } from "../context/DarkModeContext";
+import SkillsSection from "../components/SkillsSection";
 
 const projectList = [
   {
@@ -191,6 +192,9 @@ const Home = () => {
           >
             <ExperienceSection />
           </motion.div>
+
+          {/* Skills Section */}
+          <SkillsSection />
 
           {/* Featured Projects Section */}
           <motion.section
