@@ -1,87 +1,132 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
+import { 
+  SiDelphi,
+  SiCplusplus,
+  SiC,
+  SiPython,
+  SiSqlite,
+  SiReact,
+  SiTailwindcss,
+  SiFlutter,
+  SiFirebase,
+  SiFlask,
+  SiKalilinux,
+} from 'react-icons/si';
+import { 
+  DiTerminal
+} from 'react-icons/di';
 import {
-  LayoutGrid, // React icon
-  Palette, // Tailwind icon
-  Smartphone, // Flutter icon
-  Database, // Firebase icon
-  Search, // Volatility icon
-  Cpu, // Memory Analysis icon
-  Monitor, // Delphi icon
-  Code2, // C++ icon
-  FileCode2, // Python icon
-  Sparkles, // Fun icon
-} from 'lucide-react';
+  BsSearch,
+  BsCpu,
+  BsShieldLock
+} from 'react-icons/bs';
 
 const SkillsSection = () => {
   const [selectedSkill, setSelectedSkill] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isTextTruncated, setIsTextTruncated] = useState(false);
+  const textRef = useRef(null);
+
+  // Check if text is truncated
+  useEffect(() => {
+    if (textRef.current) {
+      const isTruncated = textRef.current.scrollHeight > textRef.current.clientHeight;
+      setIsTextTruncated(isTruncated);
+    }
+  }, [selectedSkill]);
 
   const skillsData = {
     "Programming": [
       {
         name: "Delphi",
         color: "bg-red-500",
-        icon: Monitor,
-        description: "A Pascal-based programming language for building cross-platform desktop apps. It's my go-to for building desktop apps - currently crafting some cool forensic utilities with it!"
+        icon: SiDelphi,
+        description: "A Pascal-based programming language for building cross-platform desktop apps. I have extensive experience with Delphi and am currently crafting some exciting new projects with it!"
       },
       {
         name: "C++",
         color: "bg-orange-500",
-        icon: Code2,
-        description: "A powerful systems programming language. I use it when I need that extra speed and low-level control"
+        icon: SiCplusplus,
+        description: "I have a strong background in C++ and use it when I need low-level control and high performance."
       },
       {
         name: "C",
         color: "bg-zinc-500",
-        icon: Code2,
-        description: "The grandfather of modern programming. I use it primarily for creating DLL wrappers and building custom DLLs"
+        icon: SiC,
+        description: "The grandfather of modern programming. I dont jump into C often, but when I do, I primarly use it for creating DLL wrappers and building custom DLLs"
       },
       {
         name: "Python",
         color: "bg-green-500",
-        icon: FileCode2,
-        description: "The Swiss Army knife of programming languages. My favorite for automating boring tasks and building quick forensic analysis tools - it just makes life easier!"
+        icon: SiPython,
+        description: "The Swiss Army knife of programming languages and my primary toolkit. I have extensive experience with Python, leveraging it daily to transform complex challenges into elegant solutions."
+      },
+      {
+        name: "SQLite",
+        color: "bg-blue-500",
+        icon: SiSqlite,
+        description: "The go-to embedded database that's literally everywhere. I regularly interact with SQLite DB's and WAL files for forensic analysis purposes."
       }
     ],
     "Full Stack": [
       {
         name: "React",
         color: "bg-blue-500",
-        icon: LayoutGrid,
+        icon: SiReact,
         description: "A JavaScript library for building user interfaces. I use it to create interactive web apps - currently powering this portfolio you're looking at!"
       },
       {
         name: "Tailwind",
         color: "bg-cyan-500",
-        icon: Palette,
+        icon: SiTailwindcss,
         description: "A utility-first CSS framework. Makes my websites look pretty without the CSS headaches 💅"
       },
       {
         name: "Flutter",
-        color: "bg-sky-500",
-        icon: Smartphone,
-        description: "Google's UI toolkit for mobile apps. I build cross-platform mobile applications with it - one codebase, runs everywhere, what's not to love?"
+        color: "bg-green-500",
+        icon: SiFlutter,
+        description: "Google's UI toolkit for mobile apps. I build cross-platform mobile applications with it - one codebase, runs everywhere!"
       },
       {
         name: "Firebase",
         color: "bg-yellow-500",
-        icon: Database,
-        description: "Google's backend platform. My goto tool for adding auth, storage, and databases to projects. Makes backend work actually enjoyable! 🔥"
+        icon: SiFirebase,
+        description: "Google's backend platform. My go-to tool for adding auth, storage, and databases to projects. Makes backend work actually enjoyable! 🔥"
+      },
+      {
+        name: "Flask",
+        color: "bg-gray-500",
+        icon: SiFlask,
+        description: "A lightweight Python web framework I use to build server-side applications and APIs quickly."
       }
     ],
-    "Digital Forensics": [
+    "Digital Forensics & Cybersecurity": [
       {
         name: "Volatility",
         color: "bg-purple-500",
-        icon: Search,
-        description: "An open-source memory forensics framework. I use it to dig through memory dumps and build custom plugins."
+        icon: BsSearch,
+        description: "An advanced open-source memory forensics framework I use to analyze RAM dumps, detect malware, and recover hidden data."
       },
       {
         name: "Forensic Explorer",
         color: "bg-indigo-500",
-        icon: Cpu,
-        description: "Our company's digital forensics software. It's my daily companion for investigating digital evidence and recovering data."
+        icon: BsCpu,
+        description: "A comprehensive digital forensics software suite developed by our company. I use daily to investigate complex cases and recover evidence."
       },
+      {
+        name: "Encase",
+        color: "bg-lime-500", 
+        icon: BsShieldLock,
+        description: "A powerful digital platform that I and many other use for forensic acquisition and analysis of hard drive data, preserving evidence integrity."
+      },
+      {
+        name: "Kali Linux",
+        color: "bg-slate-500",
+        icon: SiKalilinux,
+        description: "Industry-standard penetration testing platform. I leverage its comprehensive suite of security tools for vulnerability assessment and penetration testing."
+      }
     ],
   };
 
@@ -107,7 +152,10 @@ const SkillsSection = () => {
               {categorySkills.map((skill) => (
                 <motion.button
                   key={skill.name}
-                  onClick={() => setSelectedSkill(selectedSkill?.name === skill.name ? null : skill)}
+                  onClick={() => {
+                    setSelectedSkill(selectedSkill?.name === skill.name ? null : skill);
+                    setIsExpanded(false);
+                  }}
                   className={`group relative ${selectedSkill?.name === skill.name ? 'ring-2 ring-accent-purple' : ''}`}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -125,8 +173,8 @@ const SkillsSection = () => {
         ))}
       </div>
 
-      {/* Fixed height container for description */}
-      <div className="h-32 relative">
+      {/* Fixed height container with minimum height */}
+      <div className="relative min-h-[8rem]">
         <AnimatePresence mode="wait">
           {selectedSkill ? (
             <motion.div
@@ -134,7 +182,7 @@ const SkillsSection = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              className="absolute inset-0 p-6 bg-white dark:bg-primary-800 rounded-xl shadow-lg"
+              className="w-full p-6 bg-white dark:bg-primary-800 rounded-xl shadow-lg"
             >
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
@@ -154,12 +202,46 @@ const SkillsSection = () => {
                       {selectedSkill.name}
                     </h4>
                   </div>
-                  <p className="text-sm text-neutral-600 dark:text-neutral-400 line-clamp-2">
+                  <div 
+                    ref={textRef}
+                    className={`text-sm text-neutral-600 dark:text-neutral-400 ${
+                      isExpanded ? '' : 'line-clamp-2 md:line-clamp-none'
+                    }`}
+                  >
                     {selectedSkill.description}
-                  </p>
+                  </div>
+                  
+                  {/* Read More button - only shown when text is truncated */}
+                  {isTextTruncated && !isExpanded && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsExpanded(!isExpanded);
+                      }}
+                      className="md:hidden mt-2 text-accent-purple flex items-center gap-1 text-sm"
+                    >
+                      Read More <ChevronDown className="w-4 h-4" />
+                    </button>
+                  )}
+                  
+                  {/* Show Less button - only shown when expanded */}
+                  {isExpanded && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setIsExpanded(false);
+                      }}
+                      className="md:hidden mt-2 text-accent-purple flex items-center gap-1 text-sm"
+                    >
+                      Show Less <ChevronUp className="w-4 h-4" />
+                    </button>
+                  )}
                 </div>
                 <button 
-                  onClick={() => setSelectedSkill(null)}
+                  onClick={() => {
+                    setSelectedSkill(null);
+                    setIsExpanded(false);
+                  }}
                   className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 flex-shrink-0"
                 >
                   <span className="sr-only">Close</span>
