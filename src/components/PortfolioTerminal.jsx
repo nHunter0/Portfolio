@@ -45,15 +45,18 @@ const PortfolioTerminal = ({ onClose, terminalButtonRef }) => {
     ],
     skills: () => [
       "Technical Skills:",
-      "• Languages: Python, C++, JavaScript",
+      "• Languages: Delphi, Python, C, C++, JavaScript",
       "• Digital Forensics",
       "• Machine Learning",
       "• NLP & Data Analysis",
-      "• System Optimization",
       <div key="skills-link">
         See my skills applied in{" "}
         <Link to="/projects" className="text-accent-purple underline">
           Projects
+        </Link>
+        {" "}and form more detail visit the{" "}
+        <Link to="/" className="text-accent-purple underline">
+          Home Page
         </Link>
         .
       </div>,

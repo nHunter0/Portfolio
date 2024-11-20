@@ -61,7 +61,7 @@ const SkillsSection = () => {
         name: "Python",
         color: "bg-green-500",
         icon: SiPython,
-        description: "The Swiss Army knife of programming languages and my primary toolkit. I have extensive experience with Python, leveraging it daily to transform complex challenges into elegant solutions."
+        description: "The Swiss Army knife of programming languages and my primary toolkit. I have extensive experience with Python, leveraging it daily for both forensic analysis and machine learning implementations. Currently leading our team in developing AI-powered image analysis tools using TensorFlow, Keras, and scikit-learn, while crafting elegant solutions for complex challenges."
       },
       {
         name: "SQLite",
