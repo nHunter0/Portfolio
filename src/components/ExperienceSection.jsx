@@ -279,7 +279,7 @@ const ExperienceSection = () => {
             <motion.button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`flex-1 px-4 sm:px-6 py-2.5 rounded-lg font-medium relative ${
+              className={`flex-1 px-4 sm:px-6 py-2.5 rounded-lg font-medium relative sm:border-0 border dark:border-primary-700 ${
                 activeTab === tab ? "text-white" : ""
               }`}
             >
