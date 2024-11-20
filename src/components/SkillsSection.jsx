@@ -29,12 +29,30 @@ const SkillsSection = () => {
   const [isTextTruncated, setIsTextTruncated] = useState(false);
   const textRef = useRef(null);
 
-  // Check if text is truncated
+  // Check if text is truncated using ResizeObserver
   useEffect(() => {
+    const checkTruncation = () => {
+      if (textRef.current) {
+        const isTruncated = textRef.current.scrollHeight > textRef.current.clientHeight;
+        setIsTextTruncated(isTruncated);
+      }
+    };
+
+    // Create a ResizeObserver to watch for content changes
+    const resizeObserver = new ResizeObserver(checkTruncation);
+    
     if (textRef.current) {
-      const isTruncated = textRef.current.scrollHeight > textRef.current.clientHeight;
-      setIsTextTruncated(isTruncated);
+      resizeObserver.observe(textRef.current);
+      
+      // Initial check after a brief delay to ensure content is rendered
+      setTimeout(checkTruncation, 0);
     }
+
+    return () => {
+      if (textRef.current) {
+        resizeObserver.unobserve(textRef.current);
+      }
+    };
   }, [selectedSkill]);
 
   const skillsData = {
@@ -154,7 +172,6 @@ const SkillsSection = () => {
                   key={skill.name}
                   onClick={() => {
                     setSelectedSkill(selectedSkill?.name === skill.name ? null : skill);
-                    setIsExpanded(false);
                   }}
                   className={`group relative ${selectedSkill?.name === skill.name ? 'ring-2 ring-accent-purple' : ''}`}
                   whileHover={{ scale: 1.05 }}
@@ -173,7 +190,7 @@ const SkillsSection = () => {
         ))}
       </div>
 
-      {/* Fixed height container with minimum height */}
+      {/* Skill description container */}
       <div className="relative min-h-[8rem]">
         <AnimatePresence mode="wait">
           {selectedSkill ? (
@@ -202,46 +219,37 @@ const SkillsSection = () => {
                       {selectedSkill.name}
                     </h4>
                   </div>
-                  <div 
-                    ref={textRef}
-                    className={`text-sm text-neutral-600 dark:text-neutral-400 ${
-                      isExpanded ? '' : 'line-clamp-2 md:line-clamp-none'
-                    }`}
-                  >
-                    {selectedSkill.description}
+                  
+                  <div className="relative">
+                    <div 
+                      ref={textRef}
+                      className={`text-sm text-neutral-600 dark:text-neutral-400 transition-all duration-200 ${
+                        isExpanded ? 'h-auto' : 'h-10 overflow-hidden'
+                      }`}
+                    >
+                      {selectedSkill.description}
+                    </div>
+                    
+                    {isTextTruncated && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setIsExpanded(!isExpanded);
+                        }}
+                        className="mt-1 text-accent-purple flex items-center gap-1 text-sm"
+                      >
+                        {isExpanded ? (
+                          <>Show Less <ChevronUp className="w-4 h-4" /></>
+                        ) : (
+                          <>Read More <ChevronDown className="w-4 h-4" /></>
+                        )}
+                      </button>
+                    )}
                   </div>
-                  
-                  {/* Read More button - only shown when text is truncated */}
-                  {isTextTruncated && !isExpanded && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsExpanded(!isExpanded);
-                      }}
-                      className="md:hidden mt-2 text-accent-purple flex items-center gap-1 text-sm"
-                    >
-                      Read More <ChevronDown className="w-4 h-4" />
-                    </button>
-                  )}
-                  
-                  {/* Show Less button - only shown when expanded */}
-                  {isExpanded && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsExpanded(false);
-                      }}
-                      className="md:hidden mt-2 text-accent-purple flex items-center gap-1 text-sm"
-                    >
-                      Show Less <ChevronUp className="w-4 h-4" />
-                    </button>
-                  )}
                 </div>
+                
                 <button 
-                  onClick={() => {
-                    setSelectedSkill(null);
-                    setIsExpanded(false);
-                  }}
+                  onClick={() => setSelectedSkill(null)}
                   className="text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-200 flex-shrink-0"
                 >
                   <span className="sr-only">Close</span>

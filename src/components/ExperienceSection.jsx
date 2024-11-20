@@ -20,6 +20,7 @@ const ExperienceCard = ({
   link,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const shouldShowLink = link && link !== "#"; // Helper function to determine if link should be shown
 
   return (
     <motion.div
@@ -38,7 +39,11 @@ const ExperienceCard = ({
             <div className="flex items-center gap-2 text-sm text-accent-purple">
               <Building2 size={16} className="flex-shrink-0" />
               <span className="truncate">
-                <a href={link}>{company}</a>
+                {shouldShowLink ? (
+                  <a href={link} target="_blank" rel="noopener noreferrer">{company}</a>
+                ) : (
+                  <span>{company}</span>
+                )}
               </span>
             </div>
           </div>
@@ -97,7 +102,7 @@ const ExperienceCard = ({
                 </div>
               </div>
 
-              {link && (
+              {shouldShowLink && (
                 <motion.a
                   href={link}
                   target="_blank"
