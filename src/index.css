@@ -33,7 +33,7 @@
   }
 }
 
-/* Add smooth transitions for dark mode */
+/* Smooth transitions for dark mode */
 .transition-theme {
   transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
 }

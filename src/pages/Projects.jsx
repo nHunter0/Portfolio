@@ -71,6 +71,13 @@ const Projects = () => {
         "https://github.com/nHunter0/TF.IDF-Natural-Language-Processor-",
       tech: ["Python", "NLP", "Tkinter", "PDF Processing"],
     },
+    {
+      id: 8,
+      name: "Splitwise Clone",
+      description:"This repository is a clone of the popular Splitwise app, this project was a learning base project to practice database design and SQLAlchemy..",
+      githubLink: "https://github.com/nHunter0/splitwise",
+      tech: ["Python","Flask", "SQLAlchemy", "SQLite"],
+    }
   ];
 
   const containerVariants = {

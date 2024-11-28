@@ -26,11 +26,11 @@ const projectList = [
   },
   {
     id: 2,
-    name: "Resistor Detector",
+    name: "Text Editor C++",
     description:
-      "This repository contains the code necessary to train and utilize a Convolutional Neural Network (CNN) for resistor recognition from images. The model classifies 37 different resistor types with high accuracy.",
-    githubLink: "https://github.com/nHunter0/Resistor-Detector-",
-    tech: ["Python", "CNN", "Computer Vision", "Deep Learning"],
+      "NHText is a text editor written in C++ with predictive text technology, improving typing efficiency and accuracy through NLP and machine learning.",
+    githubLink: "https://github.com/nHunter0/TextEditorCpp",
+    tech: ["C++", "NLP", "Machine Learning"],
   },
 ];
 
@@ -96,8 +96,8 @@ const Home = () => {
                   variants={fadeIn}
                   className="text-neutral-600 dark:text-neutral-400 max-w-md pt-2"
                 >
-                  Forensic Software Engineer with 1.5+ years in developing
-                  innovative digital forensics solutions. Always building,
+                  Forensic Software Engineer with 2.5+ years in developing
+                  innovative software solutions. Always building,
                   always learning. Fueled by instant coffee. ☕
                 </motion.p>
               </motion.div>
