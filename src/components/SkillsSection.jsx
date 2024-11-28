@@ -1,5 +1,7 @@
+//! ISSUE: cant be fucked to fix: however when clicking the 'Read More', and then moving to a different skill, the animation doesn't reset. 
+// TODO: fix this
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, useAnimation, AnimatePresence } from 'framer-motion';
 import { ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 import { 
   SiDelphi,
@@ -14,14 +16,91 @@ import {
   SiFlask,
   SiKalilinux,
 } from 'react-icons/si';
-import { 
-  DiTerminal
-} from 'react-icons/di';
 import {
   BsSearch,
   BsCpu,
   BsShieldLock
 } from 'react-icons/bs';
+
+// Disaply funny warning if they click the icon 10 times
+const WarningPopup = () => (
+  <motion.div
+    initial={{ opacity: 0, y: -10 }}
+    animate={{ opacity: 1, y: 0 }}
+    exit={{ opacity: 0, y: -10 }}
+    className="absolute -top-12 left-1/2 -translate-x-1/2 w-32 z-50"
+  >
+    <div className="bg-red-100 border border-red-400 text-red-700 px-3 py-2 rounded-lg shadow-lg">
+      <p className="text-xs text-center font-medium">
+        Stop that! 😭
+      </p>
+    </div>
+  </motion.div>
+);
+
+// The roatating icons speeds up depending on the number of clicks.
+// ...More clicks = more speed
+const RotatingIcon = ({ icon: Icon }) => {
+  const [rotateValue, setRotateValue] = useState(0);
+  const [duration, setDuration] = useState(2);
+  const [showWarning, setShowWarning] = useState(false);
+  const clickCountRef = useRef(0);
+  const warningTimeoutRef = useRef(null);
+  const resetTimeoutRef = useRef(null);
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Clear any existing reset timeout
+    if (resetTimeoutRef.current) {
+      clearTimeout(resetTimeoutRef.current);
+    }
+
+    clickCountRef.current += 1;
+    setRotateValue(prev => prev + 360);
+    
+    // Increase duration (slow down) with each click
+    setDuration(prev => Math.min(prev + 0.5, 4));
+
+    // Reset duration after 3 seconds
+    resetTimeoutRef.current = setTimeout(() => {
+      setDuration(2);
+    }, 3000);
+
+    // Show warning after 10 clicks
+    if (clickCountRef.current >= 10) {
+      setShowWarning(true);
+      if (warningTimeoutRef.current) {
+        clearTimeout(warningTimeoutRef.current);
+      }
+      warningTimeoutRef.current = setTimeout(() => {
+        setShowWarning(false);
+        clickCountRef.current = 0;
+      }, 2000);
+    }
+  };
+
+  return (
+    <div className="relative">
+      <motion.div
+        animate={{ rotate: rotateValue }}
+        transition={{ 
+          duration: duration,
+          ease: "linear",
+          repeat: Infinity,
+        }}
+        onClick={handleClick}
+        className="cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-800 rounded-full p-1 transition-colors"
+      >
+        <Icon className="w-6 h-6 text-accent-purple" />
+      </motion.div>
+      <AnimatePresence>
+        {showWarning && <WarningPopup />}
+      </AnimatePresence>
+    </div>
+  );
+};
 
 const SkillsSection = () => {
   const [selectedSkill, setSelectedSkill] = useState(null);
@@ -29,7 +108,6 @@ const SkillsSection = () => {
   const [isTextTruncated, setIsTextTruncated] = useState(false);
   const textRef = useRef(null);
 
-  // Check if text is truncated using ResizeObserver
   useEffect(() => {
     const checkTruncation = () => {
       if (textRef.current) {
@@ -38,13 +116,10 @@ const SkillsSection = () => {
       }
     };
 
-    // Create a ResizeObserver to watch for content changes
     const resizeObserver = new ResizeObserver(checkTruncation);
     
     if (textRef.current) {
       resizeObserver.observe(textRef.current);
-      
-      // Initial check after a brief delay to ensure content is rendered
       setTimeout(checkTruncation, 0);
     }
 
@@ -190,7 +265,6 @@ const SkillsSection = () => {
         ))}
       </div>
 
-      {/* Skill description container */}
       <div className="relative min-h-[8rem]">
         <AnimatePresence mode="wait">
           {selectedSkill ? (
@@ -204,17 +278,11 @@ const SkillsSection = () => {
               <div className="flex items-start justify-between gap-4">
                 <div className="flex-1">
                   <div className="flex items-center gap-3 mb-2">
-                    <motion.div
-                      initial={{ rotate: 0 }}
-                      animate={{ rotate: 360 }}
-                      transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-                    >
+                    <div className="relative">
                       {selectedSkill.icon && (
-                        <selectedSkill.icon 
-                          className="w-6 h-6 text-accent-purple" 
-                        />
+                        <RotatingIcon icon={selectedSkill.icon} />
                       )}
-                    </motion.div>
+                    </div>
                     <h4 className="text-lg font-medium text-accent-purple">
                       {selectedSkill.name}
                     </h4>
