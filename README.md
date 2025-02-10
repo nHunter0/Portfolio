@@ -1,4 +1,4 @@
-# Nathan H - Portfolio Website
+# Nathan H - Portfolio Website (AI Summary) 
 
 A modern, responsive portfolio website built with React and Tailwind CSS, featuring a dark mode toggle, smooth animations, and project showcases.
 
@@ -19,7 +19,6 @@ A modern, responsive portfolio website built with React and Tailwind CSS, featur
 - Framer Motion
 - React Router
 - Lucide Icons
-- Shadcn/ui Components
 
 ## 🚀 Getting Started
 
